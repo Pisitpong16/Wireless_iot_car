@@ -1,0 +1,50 @@
+.navigation-component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navigation-component button {
+  background-color: blue;
+  width: 60px !important;
+}
+.left,
+.right,
+.up,
+.down {
+  margin: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: blue; /* Set button background color to blue */
+  border: none; /* Remove border */
+  color: rgb(21, 31, 219); /* Set text color to white */
+}
+
+button:focus {
+  outline: none; /* Remove focus outline */
+}
+
+button:hover {
+  filter: brightness(1.2); /* Add a slight hover effect */
+}
+
+button:active {
+  background-color: rgb(123, 180, 17);
+}
+
+.left,
+.right {
+  width: auto;
+}
+
+.left {
+  margin-right: 50px;
+}
+
+.icon {
+  color: yellow; /* Set icon color to yellow */
+}
+
+.navigation-component .button.active {
+  background-color: #ffcc00 !important; /* Change this to the desired active button color */
+}
