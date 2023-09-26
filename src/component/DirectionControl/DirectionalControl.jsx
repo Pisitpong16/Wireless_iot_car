@@ -8,40 +8,36 @@ import {
   faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
 
-const DirectionControl = () => {
+const DirectionControl = ({ sendCommand, socket }) => {
   const handleArrowUp = () => {
-    console.log("Arrow Up clicked");
-    // Add your specific functionality for arrow up
+    sendCommand(2, "F");
   };
 
   const handleArrowDown = () => {
-    console.log("Arrow Down clicked");
-    // Add your specific functionality for arrow down
+    sendCommand(2, "B");
   };
 
   const handleArrowLeft = () => {
-    console.log("Arrow Left clicked");
-    // Add your specific functionality for arrow left
+    sendCommand(2, "L");
   };
 
   const handleArrowRight = () => {
-    console.log("Arrow Right clicked");
-    // Add your specific functionality for arrow right
+    sendCommand(2, "R");
   };
 
   useEffect(() => {
     const handleArrowKeyPress = (event) => {
       switch (event.key) {
-        case "ArrowUp":
+        case "w":
           handleArrowUp();
           break;
-        case "ArrowDown":
+        case "s":
           handleArrowDown();
           break;
-        case "ArrowLeft":
+        case "a":
           handleArrowLeft();
           break;
-        case "ArrowRight":
+        case "d":
           handleArrowRight();
           break;
         default:
@@ -54,6 +50,7 @@ const DirectionControl = () => {
 
     // Clean up the event listener on unmount
     return () => {
+      console.log("weofpk");
       document.removeEventListener("keydown", handleArrowKeyPress);
     };
   }, []);
