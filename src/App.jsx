@@ -11,8 +11,6 @@ function App() {
   return (
     <div>
       <CameraComponent />
-
-      <SimpleCharts />
     </div>
   );
 }

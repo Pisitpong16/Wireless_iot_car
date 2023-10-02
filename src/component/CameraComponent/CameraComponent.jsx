@@ -6,6 +6,8 @@ import Typography from "@mui/material/Typography";
 
 function CameraComponent() {
   const [socket, setSocket] = useState(null);
+  const [ip, setIp] = useState("");
+  const [port, setPort] = useState("");
   const [cameraName, setCameraName] = useState("");
   const [cmdMode, setCmdMode] = useState("");
   const [cmdText, setCmdText] = useState("");
@@ -32,9 +34,7 @@ function CameraComponent() {
       socket.close();
       setImageData("");
     }
-    const newSocket = new WebSocket(
-      `ws://192.168.33.152:3000/controller/${cameraName}`
-    );
+    const newSocket = new WebSocket(`ws://${ip}:${port}/controller/${cameraName}`);
     newSocket.addEventListener("message", async (e) => {
       const dataURL = await blobToBase64(e.data);
       setImageData(dataURL);
@@ -59,29 +59,13 @@ function CameraComponent() {
     <div className="camera-container">
       <img src={imageData} alt="Stream" height="500px" />
       <div>
+        <div>IP Address</div>
+        <input type="text" value={ip} onChange={(e) => setIp(e.target.value)} />
+        <div>Port</div>
+        <input type="text" value={port} onChange={(e) => setPort(e.target.value)} />
         <div>Camera Name</div>
-        <input
-          type="text"
-          value={cameraName}
-          onChange={(e) => setCameraName(e.target.value)}
-        />
+        <input type="text" value={cameraName} onChange={(e) => setCameraName(e.target.value)} />
         <button onClick={connectCamera}>Connect Camera</button>
-      </div>
-      <div>
-        <div>Command Mode</div>
-        <input
-          type="number"
-          value={cmdMode}
-          onChange={(e) => setCmdMode(e.target.value)}
-        />
-      </div>
-      <div>
-        <div>Command Text</div>
-        <input
-          type="text"
-          value={cmdText}
-          onChange={(e) => setCmdText(e.target.value)}
-        />
       </div>
       <div>
         <DirectionControl sendCommand={sendCommand} socket={socket} />
