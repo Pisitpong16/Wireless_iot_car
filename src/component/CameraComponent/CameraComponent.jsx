@@ -59,7 +59,7 @@ function CameraComponent() {
     <div className="camera-container">
       <img src={imageData} alt="Stream" height="500px" />
       <div>
-        <div>IP Address</div>
+        <div>Host</div>
         <input type="text" value={ip} onChange={(e) => setIp(e.target.value)} />
         <div>Port</div>
         <input type="text" value={port} onChange={(e) => setPort(e.target.value)} />
