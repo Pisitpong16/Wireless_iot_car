@@ -24,7 +24,7 @@ function CameraComponent() {
     });
   };
 
-  const sendCommand = (mode, text) => {
+  const sendCommand = (mode, text, socket) => {
     console.log(mode + " " + text);
     socket.send(String.fromCharCode(mode) + text);
   };

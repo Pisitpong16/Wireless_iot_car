@@ -10,19 +10,19 @@ import {
 
 const DirectionControl = ({ sendCommand, socket }) => {
   const handleArrowUp = () => {
-    sendCommand(2, "F");
+    sendCommand(2, "F", socket);
   };
 
   const handleArrowDown = () => {
-    sendCommand(2, "B");
+    sendCommand(2, "B", socket);
   };
 
   const handleArrowLeft = () => {
-    sendCommand(2, "L");
+    sendCommand(2, "L", socket);
   };
 
   const handleArrowRight = () => {
-    sendCommand(2, "R");
+    sendCommand(2, "R", socket);
   };
 
   useEffect(() => {
