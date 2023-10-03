@@ -52,7 +52,7 @@ function CameraComponent() {
   const handleSliderChange = (event, newValue) => {
     console.log(newValue);
     setSliderValue(newValue);
-    sendCommand(1, newValue.toString());
+    sendCommand(1, newValue.toString(), socket);
   };
 
   return (
