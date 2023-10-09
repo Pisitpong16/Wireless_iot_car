@@ -3,7 +3,14 @@ import "./CameraComponent.css";
 import DirectionControl from "../DirectionControl/DirectionalControl";
 import Slider from "@mui/material/Slider";
 import Typography from "@mui/material/Typography";
-
+import { useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faArrowUp,
+  faArrowDown,
+  faArrowLeft,
+  faArrowRight,
+} from "@fortawesome/free-solid-svg-icons";
 function CameraComponent() {
   const [socket, setSocket] = useState(null);
   const [ip, setIp] = useState("");
@@ -14,6 +21,49 @@ function CameraComponent() {
   const [imageData, setImageData] = useState("");
   const [sliderValue, setSliderValue] = useState(0);
 
+  const handleArrowUp = () => {
+    sendCommand(2, "F");
+  };
+
+  const handleArrowDown = () => {
+    sendCommand(2, "B");
+  };
+
+  const handleArrowLeft = () => {
+    sendCommand(2, "L");
+  };
+
+  const handleArrowRight = () => {
+    sendCommand(2, "R");
+  };
+
+  const handleArrowKeyPress = (event) => {
+    switch (event.key) {
+      case "W":
+        handleArrowUp();
+        break;
+      case "S":
+        handleArrowDown();
+        break;
+      case "A":
+        handleArrowLeft();
+        break;
+      case "D":
+        handleArrowRight();
+        break;
+      default:
+        break;
+    }
+  };
+  const handleKeyUp = (event) => {
+    sendCommand(2, "X");
+  };
+
+  // Attach the event listener
+  document.addEventListener("keydown", handleArrowKeyPress);
+  //document.addEventListener("keyup", handleKeyUp);
+
+  // Clean up the event listener on unmount
   const blobToBase64 = async (blob) => {
     const reader = new FileReader();
     reader.readAsDataURL(blob);
@@ -24,7 +74,7 @@ function CameraComponent() {
     });
   };
 
-  const sendCommand = (mode, text, socket) => {
+  const sendCommand = (mode, text) => {
     console.log(mode + " " + text);
     socket.send(String.fromCharCode(mode) + text);
   };
@@ -52,7 +102,7 @@ function CameraComponent() {
   const handleSliderChange = (event, newValue) => {
     console.log(newValue);
     setSliderValue(newValue);
-    sendCommand(1, newValue.toString(), socket);
+    sendCommand(1, newValue.toString());
   };
 
   return (
@@ -68,7 +118,22 @@ function CameraComponent() {
         <button onClick={connectCamera}>Connect Camera</button>
       </div>
       <div>
-        <DirectionControl sendCommand={sendCommand} socket={socket} />
+        <div className="navigation-component">
+          <button className="up" onClick={handleArrowUp}>
+            <FontAwesomeIcon icon={faArrowUp} className="icon" />
+          </button>
+          <div className="button-group">
+            <button className="left" onClick={handleArrowLeft}>
+              <FontAwesomeIcon icon={faArrowLeft} className="icon" />
+            </button>
+            <button className="right" onClick={handleArrowRight}>
+              <FontAwesomeIcon icon={faArrowRight} className="icon" />
+            </button>
+          </div>
+          <button className="down" onClick={handleArrowDown}>
+            <FontAwesomeIcon icon={faArrowDown} className="icon" />
+          </button>
+        </div>
       </div>
       <div className="slider-container">
         <Typography variant="h6" gutterBottom>
